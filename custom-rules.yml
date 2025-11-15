@@ -1,0 +1,41 @@
+rules:
+  - id: hardcoded-secret-key
+    patterns:
+      - pattern: "app.config['SECRET_KEY'] = $SECRET"
+    message: "Hardcoded SECRET_KEY detected. Do not commit secrets to GitHub."
+    languages: [python]
+    severity: WARNING
+
+  - id: fake-private-key
+    patterns:
+      - pattern: |
+          FAKE_PRIVATE_KEY = """
+          $KEY
+          """
+    message: "Hardcoded private key detected. Do not commit private keys to GitHub."
+    languages: [python]
+    severity: WARNING
+
+  - id: undefined-logger-or-result
+    patterns:
+      - pattern: "logger.warning($MSG)"
+    message: "Potential undefined logger or result. Check if 'logger' and variables used are defined."
+    languages: [python]
+    severity: WARNING
+
+  - id: long-line
+    patterns:
+      - pattern: |
+          $LINE = "$TEXT"
+    message: "Long line detected. Consider breaking lines into smaller parts for readability."
+    languages: [python]
+    severity: INFO
+    metadata:
+      regex: ".{120,}"  # optional, to trigger on lines > 120 chars
+
+  - id: unused-import-os
+    patterns:
+      - pattern: "import os"
+    message: "Unused import 'os' detected."
+    languages: [python]
+    severity: INFO
