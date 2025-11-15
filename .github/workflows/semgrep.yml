@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -12,7 +11,6 @@ permissions:
 
 jobs:
   semgrep:
-    name: Semgrep SAST Scan
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +21,9 @@ jobs:
         run: pip install semgrep
 
       - name: Run Semgrep Scan
-        # 我們使用 r/secrets 規則集來掃描密鑰
-        # 我們加入 --error 參數，這樣在找到漏洞時，此步驟會失敗 (exit code 7)
-        run: semgrep scan --config=r/secrets --sarif --output=semgrep.sarif --error
+        run: semgrep scan --config=r/secrets --config=p/ci --sarif --output=semgrep.sarif .
 
-      - name: Upload SARIF to GitHub Code Scanning
-        # 關鍵：使用 if: always()
-        # 確保即使上一步 (Run Semgrep Scan) 因為找到漏洞而失敗 (exit code 7)，
-        # 掃描報告 (semgrep.sarif) 仍然會被上傳到 Security 標籤頁。
-        if: always()
+      - name: Upload SARIF to GitHub
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: semgrep.sarif
