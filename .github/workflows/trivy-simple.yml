@@ -1,0 +1,25 @@
+name: O-Level SAST Scan (Trivy Simple)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trivy_secret_scan:
+    name: Trivy SAST Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy scan and fail on secrets
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scanners: 'secret'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          exit-code: '1'
