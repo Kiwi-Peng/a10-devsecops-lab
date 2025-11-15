@@ -29,6 +29,12 @@ def another_function():
 # The key below is a universally recognized example format for an AWS Access Key.
 # All SAST scanners (Trivy, Gitleaks, Semgrep) are trained to find this exact pattern.
 
-FAKE_AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE" 
+FAKE_PRIVATE_KEY = """
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQCqGKukO1De7zhZj6+H0qtjTkVxwTCpvKe4eCZ0FPqri0cb2JZfXJ/DgYSF6vUp
+... (fake key data) ...
+gQQApHAQY/iFsjJe0A9D/wi/h4aiG6EnVfmedUPitHntcJULmgQyMLNpu3wJkS1Z
+-----END RSA PRIVATE KEY-----
+"""
 
 # -----------------------------------------------------------------
