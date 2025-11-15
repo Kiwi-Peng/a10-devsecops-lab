@@ -26,10 +26,9 @@ jobs:
 
       - name: Run Semgrep scan
         run: |
-          semgrep --config "p/ci" --metrics --timeout 120
+          semgrep scan --config "p/ci" --metrics=off --timeout 120 --sarif --output=semgrep.sarif
 
-      - name: Upload Semgrep SARIF (for GitHub Code Scanning)
+      - name: Upload Semgrep SARIF
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: semgrep.sarif
-        # Note: semgrep can produce sarif if configured; for simplicity GitHub will show results
