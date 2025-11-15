@@ -28,7 +28,7 @@ jobs:
           exit-code: '1'          # 如果發現問題，就讓 Action 失敗 (Red X)
           format: 'sarif'         # 輸出為 SARIF 格式 (供 GitHub 讀取)
           output: 'trivy-results.sarif' # 輸出檔案名稱
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW' # 僅掃描高風險和嚴重等級的密鑰
+          severity: 'Critical,High,Moderate,Low' # 僅掃描高風險和嚴重等級的密鑰
 
       - name: Upload Trivy scan results to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
