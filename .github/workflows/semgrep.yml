@@ -20,6 +20,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Semgrep SAST Scan
-        uses: semgrep/semgrep-action@v2
+        uses: semgrep/semgrep-action@v2.6.0
         with:
           publish: true
