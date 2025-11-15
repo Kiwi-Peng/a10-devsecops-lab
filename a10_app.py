@@ -22,7 +22,6 @@ def roll_dice():
 
 # A 級 Linter 會抱怨函式之間缺少必要的空行
 def another_function():
-    pass
 
 # -----------------------------------------------------------------
 # O-LEVEL SAST VULNERABILITY (FOR TRIVY DETECTION)
