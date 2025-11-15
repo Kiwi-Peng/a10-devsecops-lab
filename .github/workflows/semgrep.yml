@@ -26,3 +26,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: semgrep.sarif
+      - name: Run Semgrep Scan
+        run: semgrep scan \
+             --config=r/secrets \
+             --config=p/python \
+             --config=custom-rules.yml \
+             --sarif \
+             --output=semgrep.sarif .
+          
+          
