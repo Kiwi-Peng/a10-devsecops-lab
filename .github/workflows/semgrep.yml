@@ -21,7 +21,7 @@ jobs:
         run: pip install semgrep
 
       - name: Run Semgrep Scan
-        run: semgrep scan --config=r/secrets --sarif --output=semgrep.sarif
+        run: semgrep scan --config=r/secrets --config=p/ci --sarif --output=semgrep.sarif .
 
       - name: Upload SARIF to GitHub
         uses: github/codeql-action/upload-sarif@v4
