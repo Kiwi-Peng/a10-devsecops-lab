@@ -1,0 +1,27 @@
+name: O-Level SAST Scan (Gitleaks)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read # Gitleaks 只需要讀取權限
+
+jobs:
+  gitleaks_scan:
+    name: Gitleaks SAST Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Gitleaks 需要完整的提交歷史
+
+      - name: Run Gitleaks Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          # Gitleaks 會在 GitHub 介面上顯示報告
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
