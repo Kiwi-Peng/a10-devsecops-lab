@@ -1,7 +1,3 @@
-# O 級: SAST (靜態應用程式安全測試) 工作流程
-# This workflow integrates Semgrep, a SAST tool, into the GitHub Actions pipeline.
-# It scans the code for security vulnerabilities on every push.
-
 name: O-Level SAST Scan (Semgrep)
 
 on:
@@ -9,26 +5,21 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # 允許手動觸發
+  workflow_dispatch:
 
 permissions:
-  contents: read # 允許 Actions 讀取程式碼
-  security-events: write # 允許 Actions 將掃描結果寫入 Security 標籤
+  contents: read
+  security-events: write
 
 jobs:
   semgrep_scan:
     name: Semgrep SAST Scan
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout (簽出) 程式碼
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 執行 Semgrep SAST 掃描
-      # Semgrep 會自動偵測 Python 專案並套用相關規則
       - name: Run Semgrep SAST Scan
         uses: semgrep/semgrep-action@v2
         with:
-          # Semgrep 會自動將結果上傳到 GitHub 的 Security -> Code scanning alerts
-          # 感謝 'security-events: write' 權限
           publish: true
